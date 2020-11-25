@@ -47,7 +47,18 @@ public class Tokenizer {
         // 解析成功则返回无符号整数类型的token，否则返回编译错误
         //
         // Token 的 Value 应填写数字的值
-        throw new Error("Not implemented");
+        //throw new Error("Not implemented");
+        StringBuilder temp = new StringBuilder();
+        Pos p = it.nextPos();
+        while (Character.isDigit(it.peekChar())){
+            temp.append(it.peekChar());
+            it.nextChar();
+        }
+        try{
+            return new Token(TokenType.Uint, Integer.parseUnsignedInt(temp.toString()), p , it.currentPos());
+        }catch (Exception e){
+            throw new TokenizeError(ErrorCode.IntegerOverflow, p );
+        }
     }
 
     private Token lexIdentOrKeyword() throws TokenizeError {
@@ -60,7 +71,14 @@ public class Tokenizer {
         // -- 否则，返回标识符
         //
         // Token 的 Value 应填写标识符或关键字的字符串
-        throw new Error("Not implemented");
+        //throw new Error("Not implemented");
+    	StringBuilder temp = new StringBuilder();
+        Pos p = it.nextPos();
+        while (Character.isDigit(it.peekChar()) || Character.isAlphabetic(it.peekChar())){
+            tempDigit.append(it.peekChar());
+            it.nextChar();
+        }
+        //
     }
 
     private Token lexOperatorOrUnknown() throws TokenizeError {
