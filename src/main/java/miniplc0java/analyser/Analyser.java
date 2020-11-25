@@ -226,7 +226,7 @@ public final class Analyser {
 			expect(TokenType.Equal);
 
 			// 常表达式
-			var value = analyseConstantExpression();
+			analyseConstantExpression();
 
 			// 分号
 			expect(TokenType.Semicolon);
@@ -258,7 +258,7 @@ public final class Analyser {
 			expect(TokenType.Semicolon);
 
 			// 加入符号表，请填写名字和当前位置（报错用）
-			declareSymbol(nameToken.getValueString(), nameToken.getStartPos());
+			initializeSymbol(nameToken.getValueString(), nameToken.getStartPos());
 
 			// 如果没有初始化的话在栈里推入一个初始值
 			if (!initialized) {
@@ -294,7 +294,7 @@ public final class Analyser {
 			instructions.add(new Instruction(Operation.LIT, 0));
 		}
 
-		var token = expect(TokenType.Uint);
+		var nameToken = expect(TokenType.Uint);
 		instructions.add(new Instruction(Operation.LIT, (Integer) nameToken.getValue()));
 		if (negative) {
 			instructions.add(new Instruction(Operation.SUB));
