@@ -312,7 +312,7 @@ public final class Analyser {
 				expect(TokenType.Minus);
 				negative = true;
 			}
-			analyseTerm();
+			analyseItem();
 			if (negative) {
 				instructions.add(new Instruction(Operation.SUB));
 			} else {
@@ -324,7 +324,7 @@ public final class Analyser {
 
 	private void analyseAssignmentStatement() throws CompileError {
 		var temp = expect(TokenType.Ident);
-		int offsetTemp = this.getOffset(temp.getValueString(), tempIdent.getStartPos());
+		int offsetTemp = this.getOffset(temp.getValueString(), temp.getStartPos());
 		expect(TokenType.Equal);
 		analyseExpression();
 		expect(TokenType.Semicolon);

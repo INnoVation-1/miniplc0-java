@@ -68,14 +68,14 @@ public class Tokenizer {
 		StringBuilder temp = new StringBuilder();
 		Pos p = it.nextPos();
 		do {
-			tempDigit.append(it.peekChar());
+			temp.append(it.peekChar());
 			it.nextChar();
 		} while (Character.isAlphabetic(it.peekChar()) || Character.isDigit(it.peekChar()));
 		// 尝试将存储的字符串解释为关键字
 		// -- 如果是关键字，则返回关键字类型的 token
 		// -- 否则，返回标识符
 		try {
-			return new Token(TokenType.Uint, tempDigit.toString(), p, it.currentPos());
+			return new Token(TokenType.Uint, temp.toString(), p, it.currentPos());
 		} catch (Exception e) {
 			throw new TokenizeError(ErrorCode.InvalidInput, p);
 		}
