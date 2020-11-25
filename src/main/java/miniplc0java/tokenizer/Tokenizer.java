@@ -81,8 +81,20 @@ public class Tokenizer {
 		// -- 如果是关键字，则返回关键字类型的 token
 		// -- 否则，返回标识符
 		try {
-			return new Token(TokenType.Uint, temp.toString(), p, it.currentPos());
-		} catch (Exception e) {
+			if (temp.toString().equals("begin")){
+                return new Token(TokenType.Begin, temp.toString(), p, it.currentPos());
+            }else if (temp.toString().equals("end")){
+                return new Token(TokenType.End, temp.toString(), p, it.currentPos());
+            }else if (temp.toString().equals("var")){
+                return new Token(TokenType.Var, temp.toString(), p, it.currentPos());
+            }else if (temp.toString().equals("const")){
+                return new Token(TokenType.Const, temp.toString(), p, it.currentPos());
+            }else if (temp.toString().equals("print")){
+                return new Token(TokenType.Print, temp.toString(), p, it.currentPos());
+            }else{
+                return new Token(TokenType.Ident, temp.toString(), p, it.currentPos());
+            }
+        } catch (Exception e) {
 			throw new TokenizeError(ErrorCode.InvalidInput, p);
 		}
 		// Token 的 Value 应填写标识符或关键字的字符串
