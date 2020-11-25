@@ -45,10 +45,13 @@ public class Tokenizer {
 		// -- 前进一个字符，并存储这个字符
 		StringBuilder temp = new StringBuilder();
 		Pos p = it.nextPos();
-		do {
-			temp.append(it.peekChar());
-			it.nextChar();
-		} while (Character.isDigit(it.peekChar()));
+		if (Character.isDigit(it.peekChar())) {
+			do {
+				temp.append(it.peekChar());
+				it.nextChar();
+			} while (Character.isDigit(it.peekChar()));
+		}
+		
 		// 解析存储的字符串为无符号整数
 		// 解析成功则返回无符号整数类型的token，否则返回编译错误
 		try {
@@ -67,10 +70,13 @@ public class Tokenizer {
 		// -- 前进一个字符，并存储这个字符
 		StringBuilder temp = new StringBuilder();
 		Pos p = it.nextPos();
-		do {
-			temp.append(it.peekChar());
-			it.nextChar();
-		} while (Character.isAlphabetic(it.peekChar()) || Character.isDigit(it.peekChar()));
+		if (Character.isAlphabetic(it.peekChar()) || Character.isDigit(it.peekChar())) {
+			do {
+				temp.append(it.peekChar());
+				it.nextChar();
+			} while (Character.isAlphabetic(it.peekChar()) || Character.isDigit(it.peekChar()));
+		}
+
 		// 尝试将存储的字符串解释为关键字
 		// -- 如果是关键字，则返回关键字类型的 token
 		// -- 否则，返回标识符
